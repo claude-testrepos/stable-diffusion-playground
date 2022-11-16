@@ -12,6 +12,7 @@ EXAMPLES = [
 
 
 def run(prompt, negative, model, scheduler, steps, guidance, seed, init_image, strength):
+    seed = int(seed)
     if seed < 0:
         seed = random.randint(0, 2**32 - 1)
     img = generate(prompt, negative, model, scheduler, steps, guidance, seed, init_image, strength)
