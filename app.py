@@ -1,8 +1,24 @@
+import json
 import random
+import time
+from pathlib import Path
 
 import gradio as gr
+from PIL.PngImagePlugin import PngInfo
 
 from pipeline import MODELS, SCHEDULERS, generate
+
+OUT = Path("outputs")
+
+
+def save(img, params):
+    """Keep every image with its settings embedded, like A1111 does."""
+    OUT.mkdir(exist_ok=True)
+    info = PngInfo()
+    info.add_text("parameters", json.dumps(params))
+    path = OUT / f"{int(time.time())}_{params['seed']}.png"
+    img.save(path, pnginfo=info)
+    return path
 
 EXAMPLES = [
     ["a cozy cabin in a snowy forest at night, warm light, digital painting, artstation", "blurry, low quality"],
@@ -16,6 +32,8 @@ def run(prompt, negative, model, scheduler, steps, guidance, seed, init_image, s
     if seed < 0:
         seed = random.randint(0, 2**32 - 1)
     img = generate(prompt, negative, model, scheduler, steps, guidance, seed, init_image, strength)
+    save(img, dict(prompt=prompt, negative=negative, model=model, scheduler=scheduler,
+                   steps=int(steps), guidance=guidance, seed=seed, img2img=init_image is not None))
     return img, f"seed: {seed}"
 
 
