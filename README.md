@@ -1,6 +1,6 @@
 # Stable Diffusion Playground
 
-Gradio web UI around 🤗 diffusers for my ML course project (Fall 2022). Supports SD 1.5 / 2.1, a coulpe of samplers, negative prompts and img2img.
+Gradio web UI around 🤗 diffusers for my ML course project (Fall 2022). Supports SD 1.5 / 2.1, a couple of samplers, negative prompts and img2img.
 
 ## Run
 
