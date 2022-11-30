@@ -13,3 +13,8 @@ python app.py
 ## Notes
 
 Runs on a 6GB GPU with attention slicing. CPU works but takes minutes per image.
+
+## TODO
+
+- [ ] refactor into smaller functions
+- [ ] clean up the code
